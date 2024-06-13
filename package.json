@@ -4,7 +4,7 @@
   "description": "Atividade prático de implementação de um sistema de Autenticação utilizando a abordagem de autenticação com JWT.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./src/server.ts",
+    "dev": "nodemon ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
