@@ -24,3 +24,26 @@ export async function cadastrarUsuario(
     }
   }
 }
+
+export async function verificarCredenciais(email: string, senha: string): Promise<boolean> {
+    try {
+        const db = await openDb;
+        const query = `
+            SELECT * FROM users 
+            WHERE (email = ?) 
+            AND senha = ?
+        `;
+        const result = await db.get(query, [email, senha]);
+        console.log(result);
+        // console.log(usuarioOrEmail, senha);
+ 
+        if (result) {
+            return true; // Credenciais válidas
+        } else {
+            return false; // Credenciais inválidas
+        }
+    } catch (error) {
+        console.error('Erro ao verificar credenciais:', error);
+        throw new Error('Erro ao verificar credenciais.');
+    }
+}
