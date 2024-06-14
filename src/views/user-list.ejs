@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     
+    <title>Lista de Usuários</title>
+    <style>
+        .logout-button {
+            margin-left: 20px;
+            padding: 10px;
+            width: 10vw;
+            background-color: red;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+        .logout-button:hover{
+            font-weight: bold;
+            transform: scale(1.1); /* Zoom de 10% no hover */
+        }
+
+        .logout-button a {
+            text-decoration: none;
+            color: black;
+            display: block;
+            width: 100%;
+            height: 100%;
+            line-height: inherit; /* Garante que a linha de texto centralizada */
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Usuários</h1>
+    <ul>
+    <!-- Exemplo de estilo diferente para usuário autenticado -->
+      <li><strong><%= usuarioAuth %> 😎</strong></li>
+     
+     <% users.forEach((user) => { %>
+        <% if (user.usuario != usuarioAuth) { %>
+            <li><%= user.usuario %></li>
+        <% } %>
+    <% }); %>
+</ul>
+
+<button class="logout-button">
+    <a href="/logout">Sair</a>
+</button>
+
+</body>
+</html>

@@ -17,14 +17,7 @@ void (async function () {
       senha TEXT NOT NULL
     ) 
   `);
-//   try {
-//     await connection.exec(`
-//         INSERT INTO users (nome, sobrenome, usuario, email, senha) 
-//         VALUES ('Nome', 'Sobrenome', 'admins', 'wiloberd11@gmail.com', 'admin')
-//     `);
-//   } catch (error) {
-//     console.log("Erro ao inserir usuário:" + `${error}`);
-//   }
+
 })();
 
 export  {databaseConnectionPromise as openDb};

@@ -34,8 +34,6 @@ export async function verificarCredenciais(email: string, senha: string): Promis
             AND senha = ?
         `;
         const result = await db.get(query, [email, senha]);
-        console.log(result);
-        // console.log(usuarioOrEmail, senha);
  
         if (result) {
             return true; // Credenciais válidas
