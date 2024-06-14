@@ -17,6 +17,14 @@ void (async function () {
       senha TEXT NOT NULL
     ) 
   `);
+   try {
+     await connection.exec(`
+            INSERT INTO users (nome, sobrenome, usuario, email, senha) 
+            VALUES ('Admin', 'User', 'admin', 'admin@example.com', 'admin')
+        `);
+   } catch (error) {
+     console.log("User admin already exists");
+   }
 
 })();
 
