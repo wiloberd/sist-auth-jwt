@@ -1,6 +1,5 @@
 // userController.ts
-
-import { openDb } from "./database";
+import { openDb } from "./models/database";
 
 export async function cadastrarUsuario(
   nome: string,
