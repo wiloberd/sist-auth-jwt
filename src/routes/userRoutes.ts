@@ -1,14 +1,16 @@
 import { Router } from "express";
-import { getAllUsers, getUserById, createUser, updateUser, deleteUserById } from "../controllers/userController";
+import { getAllUsers, getUserById, createUser, updateUser, deleteUserById, loginUser } from "../controllers/userController";
 import { listRoutes } from "../middleware/routes";
+import { authenticate } from "../middleware/auth";
 
 const router = Router();
-
+ 
 // Rota para listar todas as rotas
 router.get("/", listRoutes); 
-
-router.get("/users", getAllUsers);
-router.get("/users/:id", getUserById);
+ 
+router.post("/login", loginUser);
+router.get("/users", authenticate, getAllUsers);
+router.get("/users/:id", authenticate, getUserById);
 
 router.post("/users", createUser);
 router.put("/users/:id", updateUser);

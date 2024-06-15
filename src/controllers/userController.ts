@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { z } from 'zod';
+import jwt from 'jsonwebtoken';
 import { openDb } from "../models/database";
 
 const userSchema = z.object({
@@ -9,6 +10,33 @@ const userSchema = z.object({
   email: z.string(),
   senha: z.string().min(5),
 })
+
+const loginSchema = z.object({
+  usuario: z.string(),
+  senha: z.string().min(5),
+})
+
+export const loginUser = async (req: Request, res: Response) => {
+  const { usuario, senha } = loginSchema.parse(req.body);
+
+  try {
+    const db = await openDb;
+    const query = "SELECT id, nome, sobrenome, usuario, email FROM users WHERE usuario =? AND senha =?";
+    const user = await db.get(query, [usuario, senha]);
+    
+    if (user) {
+      const token = jwt.sign({id: user.id }, process.env.JWT_TOKEN || 'secret', {
+        expiresIn: '1h',
+      });
+      res.json({auth: true, token});
+    } else{
+      res.status(401).json({ error: "Usuário ou senha inválidos." });
+    }
+  } catch (error) {
+    console.error("Erro ao fazer login:", error);
+    res.status(500).json({ error: "Erro ao fazer login." });
+  }
+}
 
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
@@ -32,6 +60,7 @@ export const getUserById = async (req: Request, res: Response) => {
     const user = await db.get(query, [req.params.id]);
     
     if (user) {
+      console.log(user)
       res.status(200).json(user);
     }
     else {
